@@ -12,10 +12,12 @@ class _HomePageState extends State<HomePage> {
   bool isSoundOn = false;
   bool isTimerStarted = false;
   bool isclicked = false;
+  int remainingSeconds = 30;
   void resetTimer() {
     setState(() {
       isTimerStarted = false;
-      isclicked = true;
+      remainingSeconds = 30;
+      isclicked = !isclicked;
     });
   }
 
@@ -103,6 +105,7 @@ class _HomePageState extends State<HomePage> {
                 child: ClockView(
                   isSoundOn: isSoundOn,
                   isTimerStarted: isTimerStarted,
+                  remainingSeconds: remainingSeconds,
                 ),
               ),
               const SizedBox(
@@ -160,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(
-                height: 14,
+                height: 15,
               ),
               SizedBox(
                 width: double.infinity,
@@ -168,12 +171,9 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      isTimerStarted
-                          ? () {
-                              resetTimer();
-                             
-                            }
-                          : null;
+                      if (isTimerStarted) {
+                        resetTimer();
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: isclicked
@@ -187,8 +187,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     child: Text(
                       isTimerStarted
-                          ? "LET`S STOP I`M FULL NOW"
-                          : "LET`S STOP I`M FULL NOW",
+                          ? "LET'S STOP I'M FULL NOW"
+                          : "LET'S STOP I'M FULL NOW",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),

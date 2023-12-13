@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 class ClockView extends StatefulWidget {
   final bool isSoundOn;
   final bool isTimerStarted;
+  final int remainingSeconds; // Add this property
 
   const ClockView({
     Key? key,
     required this.isSoundOn,
     required this.isTimerStarted,
+    required this.remainingSeconds, // Initialize the property
   }) : super(key: key);
 
   @override
@@ -23,13 +25,14 @@ class _ClockViewState extends State<ClockView> {
   AudioPlayer audioPlayer = AudioPlayer();
   AudioCache audioCache = AudioCache(); // Create an instance of AudioCache
   Timer? timer;
-  int remainingSeconds = 30;
+ late int remainingSeconds;
 
   @override
-  void initState() {
+   void initState() {
     super.initState();
+      remainingSeconds = widget.remainingSeconds; // Move it here
     startTimer();
-    playSound(); // Play the sound immediately upon initialization
+    playSound();
   }
 
   void playSound() async {
